@@ -16,8 +16,19 @@ code {
 }
 
 @media (max-width: 768px) {
-  .skill-card {
-    width: 100%; 
-    max-width: 300px;
+  .accueil-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .accueil-section img {
+    width: 80%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .accueil-section .texte {
+    padding: 0 1rem;
   }
 }

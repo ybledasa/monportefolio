@@ -93,3 +93,34 @@ function Accueil() {
 }
 
 export default Accueil;
+const responsiveStyles = `
+  @media (max-width: 768px) {
+    #accueil {
+      flex-direction: column !important;
+      padding: 20px 10px !important;
+    }
+
+    #accueil img {
+      width: 80% !important;
+      max-height: 500px !important;
+    }
+
+    #accueil h1 {
+      font-size: 24px !important;
+    }
+
+    #accueil p {
+      font-size: 16px !important;
+    }
+
+    #accueil button {
+      font-size: 16px !important;
+      padding: 12px 24px !important;
+    }
+  }
+`;
+
+const styleSheet2 = document.createElement("style");
+styleSheet2.type = "text/css";
+styleSheet2.innerText = responsiveStyles;
+document.head.appendChild(styleSheet2);
