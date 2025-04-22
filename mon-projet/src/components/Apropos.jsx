@@ -57,11 +57,11 @@ function Apropos() {
         flexDirection: 'column',
         alignItems: 'center',
       }}>
-        {/* PHOTO RONDE */}
+      
         <img
           className="photo-profil"
           src="/image_acceuil.jpeg" 
-          alt="Photo de Sandrine"
+          alt="Sandrine"
           style={{
             width: '150px',
             height: '150px',

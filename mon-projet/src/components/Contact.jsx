@@ -139,11 +139,6 @@ const infoItem = {
   gap: '10px',
 };
 
-// Style pour les icônes
-const iconStyle = {
-  width: '22px',
-  height: '22px',
-};
 
 // Style pour les champs
 const inputStyle = {
