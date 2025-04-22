@@ -1,6 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function ProjetsEtude() {
+  useEffect(() => {
+    const responsiveStyles = `
+      @media (max-width: 768px) {
+        #projets-etude {
+          padding: 50px 15px !important;
+        }
+
+        #projets-etude h2 {
+          font-size: 24px !important;
+          text-align: center !important;
+        }
+
+        .carte-projet {
+          width: 100% !important;
+        }
+
+        .carte-projet img {
+          height: 180px !important;
+        }
+      }
+    `;
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = responsiveStyles;
+    document.head.appendChild(styleSheet);
+  }, []);
+
   return (
     <section 
       id="projets-etude"
@@ -11,10 +38,7 @@ function ProjetsEtude() {
         padding: '80px 20px',
       }}
     >
-      <div style={{
-        maxWidth: '1100px',
-        margin: '0 auto',
-      }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
         <h2 style={{ fontSize: '32px', marginBottom: '40px', textAlign: 'left' }}>Projets d'Étude</h2>
 
         <div style={{
@@ -24,21 +48,20 @@ function ProjetsEtude() {
           gap: '30px',
         }}>
           {renderProject(
-            "/image/ascii.png", // Capture de ton projet Kaquiz (à mettre dans public/images)
-            "ascii art web",
-            "Un programme qui génere les lettres de façon styliser"
+            "/image/ascii.png",
+            "Ascii Art Web",
+            "Un programme qui génère des lettres stylisées à partir d'une saisie utilisateur."
           )}
           {renderProject(
-            "/image/Secure Messenger.png", // Ton portfolio HTML
+            "/image/Secure Messenger.png",
             "Secure Messenger",
-            "Secure Messenger est une application mobile de messagerie sécurisée permettant d’échanger des messages, images et vidéos en toute confidentialité. Elle intègre l’authentification biométrique et le chiffrement de bout en bout pour garantir la protection des données des utilisateurs."
+            "Application mobile sécurisée avec chiffrement de bout en bout, permettant d’échanger messages, images et vidéos. Intègre une authentification biométrique."
           )}
           {renderProject(
-            "/image/Groupie Trackers.png", // Capture du réseau social
+            "/image/Groupie Trackers.png",
             "Groupie Trackers",
-            "Groupie Trackers est une application web interactive qui permet d’explorer les informations de groupes et artistes musicaux à partir d’une API RESTful. Elle affiche les membres, dates, lieux de concerts et détails clés via une interface élégante, avec un backend développé en Go."
+            "Application web interactive connectée à une API RESTful pour explorer des groupes musicaux, leurs concerts et membres, avec backend en Go."
           )}
-      
         </div>
       </div>
     </section>
@@ -47,7 +70,11 @@ function ProjetsEtude() {
 
 function renderProject(image, title, description) {
   return (
-    <div style={{ width: '300px', color: 'inherit' }}>
+    <div
+      className="carte-projet"
+      data-aos="zoom-in-up"
+      style={{ width: '300px', color: 'inherit' }}
+    >
       <div style={{
         background: '#fff',
         borderRadius: '10px',
@@ -57,8 +84,8 @@ function renderProject(image, title, description) {
         cursor: 'default',
         display: 'flex',
         flexDirection: 'column',
-        height: '100%', // prend toute la hauteur
-        minHeight: '420px', // ajustable selon ta mise en page
+        height: '100%',
+        minHeight: '460px', // Plus haut pour les longues descriptions
       }}
       onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
       onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
@@ -77,12 +104,12 @@ function renderProject(image, title, description) {
           display: 'flex',
           flexDirection: 'column',
           flexGrow: 1,
-          justifyContent: 'space-between', // ✅ répartit description + bouton
+          justifyContent: 'space-between',
           textAlign: 'center',
         }}>
           <div>
-            <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '8px' }}>{title}</h3>
-            <p style={{ fontSize: '14px', color: '#333' }}>{description}</p>
+            <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '10px' }}>{title}</h3>
+            <p style={{ fontSize: '14px', color: '#333', textAlign: 'justify' }}>{description}</p>
           </div>
           <button style={{
             marginTop: '20px',
@@ -101,6 +128,5 @@ function renderProject(image, title, description) {
     </div>
   );
 }
-
 
 export default ProjetsEtude;
