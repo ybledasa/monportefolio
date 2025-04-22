@@ -3,11 +3,19 @@ import React, { useState, useEffect } from 'react';
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -25,13 +33,20 @@ function Navbar() {
       transition: 'background-color 0.3s, padding 0.3s'
     }}>
       <div style={styles.container}>
-        <button style={styles.burger} onClick={toggleMenu}>☰</button>
+        {isMobile && (
+          <button style={styles.burger} onClick={toggleMenu}>☰</button>
+        )}
 
         <ul style={{
           ...styles.ul,
-          maxHeight: menuOpen ? '500px' : '0px',
-          padding: menuOpen ? '20px' : '0px',
-          opacity: menuOpen ? 1 : 0,
+          flexDirection: isMobile ? 'column' : 'row',
+          display: isMobile ? (menuOpen ? 'flex' : 'none') : 'flex',
+          position: isMobile ? 'absolute' : 'static',
+          top: isMobile ? '70px' : 'auto',
+          right: isMobile ? '10px' : 'auto',
+          backgroundColor: isMobile ? '#444' : 'transparent',
+          borderRadius: isMobile ? '10px' : '0px',
+          boxShadow: isMobile ? '0 4px 10px rgba(0,0,0,0.4)' : 'none',
         }}>
           <li><a href="#accueil" style={styles.a} onClick={closeMenu}>Accueil</a></li>
           <li><a href="#apropos" style={styles.a} onClick={closeMenu}>À propos</a></li>
@@ -52,7 +67,6 @@ const styles = {
     padding: '0 20px'
   },
   burger: {
-    display: 'none',
     background: 'transparent',
     border: 'none',
     fontSize: '30px',
@@ -61,30 +75,18 @@ const styles = {
   },
   ul: {
     listStyle: 'none',
-    flexDirection: 'column',
-    backgroundColor: '#444',
-    position: 'absolute',
-    top: '70px',
-    right: '10px',
-    borderRadius: '10px',
-    overflow: 'hidden',
-    transition: 'all 0.5s ease',
-    boxShadow: '0 4px 10px rgba(0,0,0,0.4)',
+    gap: '30px',
+    margin: 0,
+    padding: 0,
   },
   a: {
     color: 'white',
     textDecoration: 'none',
     fontSize: '18px',
     fontWeight: 'bold',
-    padding: '10px 0',
+    padding: '10px',
     display: 'block',
   }
 };
-
-// Responsive JS
-if (window.innerWidth <= 768) {
-  styles.burger.display = 'block';
-  styles.ul.flexDirection = 'column';
-}
 
 export default Navbar;
